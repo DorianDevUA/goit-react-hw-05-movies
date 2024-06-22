@@ -15,8 +15,21 @@ const fetchTrendingMovies = async () => {
   return response.data;
 };
 
+const fetchMoviesByName = async (query, page = 1) => {
+  const searchParams = new URLSearchParams({
+    api_key: API_KEY,
+    language: 'uk',
+    query,
+    page,
+  });
+
+  const response = await axios(`search/movdie?${searchParams}`);
+  return response.data;
+};
+
 const API = {
   fetchTrendingMovies,
+  fetchMoviesByName,
 };
 
 export default API;
