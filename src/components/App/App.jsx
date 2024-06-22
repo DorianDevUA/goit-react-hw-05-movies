@@ -1,18 +1,25 @@
-import { useState } from 'react';
+// import { useEffect, useState } from 'react';
+// import API from '../../services/themoviedb-api';
 
-function App() {
-  const [count, setCount] = useState(0);
+import { Route, Routes } from 'react-router-dom';
+import SharedLayout from '../SharedLayout';
+import HomePage from '../../pages/HomePage';
 
+const App = () => {
   return (
     <>
-      <h1>React Router. HomeWork-05 Movies</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="movies" element={<div>MoviesPage</div>} />
+          <Route path="movies/:movieId" element={<div>MovieDetailsPage</div>}>
+            <Route path="cast" element={<div>Cast component</div>} />
+            <Route path="reviews" element={<div>Reviews component</div>} />
+          </Route>
+        </Route>
+      </Routes>
     </>
   );
-}
+};
 
 export default App;
