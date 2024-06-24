@@ -2,7 +2,7 @@ const MovieInfo = ({
   movie: { title, overview, vote_average, genres, poster_path },
 }) => {
   const posterImg = poster_path
-    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+    ? `https://image.tmdb.org/t/p/w500${poster_path}`
     : 'https://placehold.co/240x360';
 
   return (
