@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import API from '../services/themoviedb-api';
 import STATUS from '../services/state-machine';
 import SearchForm from '../components/SearchForm';
@@ -12,6 +12,8 @@ const MoviesPage = () => {
 
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query') ?? '';
+
+  const location = useLocation();
 
   let content = null;
 
@@ -45,7 +47,7 @@ const MoviesPage = () => {
       content = <div>{error.message}</div>;
       break;
     case STATUS.RESOLVED:
-      content = <MoviesList movies={movies} />;
+      content = <MoviesList movies={movies} location={location} />;
       break;
     default:
       content = null;

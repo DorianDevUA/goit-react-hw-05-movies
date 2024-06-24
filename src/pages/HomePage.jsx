@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import API from '../services/themoviedb-api';
 import STATUS from '../services/state-machine';
 import MoviesList from '../components/MoviesList';
@@ -7,6 +8,7 @@ const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(STATUS.IDLE);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -40,7 +42,7 @@ const HomePage = () => {
 
   if (status === STATUS.RESOLVED) {
     console.log(movies);
-    return <MoviesList movies={movies} />;
+    return <MoviesList movies={movies} location={location} />;
   }
 
   if (STATUS === STATUS.REJECTED) {

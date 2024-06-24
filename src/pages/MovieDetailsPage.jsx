@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import API from '../services/themoviedb-api';
 import MovieInfo from '../components/MovieInfo';
 import STATUS from '../services/state-machine';
@@ -11,6 +11,9 @@ const MovieDetailsPage = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
 
   const { movieId } = useParams();
+
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -46,7 +49,7 @@ const MovieDetailsPage = () => {
     console.log('movie', movie);
     return (
       <>
-        <Link to="">← Go back</Link>
+        <Link to={backLinkLocationRef.current}>← Go back</Link>
         <MovieInfo movie={movie} />
         <AdditionalMovieInfo />
         <Outlet />
