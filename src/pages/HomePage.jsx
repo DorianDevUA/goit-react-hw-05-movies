@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import API from '../services/themoviedb-api';
-
-const STATUS = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  RESOLVED: 'resolved',
-  REJECTED: 'rejected',
-};
+import STATUS from '../services/state-machine';
+import MoviesList from '../components/MoviesList';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -44,30 +39,18 @@ const HomePage = () => {
   }
 
   if (status === STATUS.RESOLVED) {
-    return (
-      <div>
-        {movies.map(movie => (
-          <div key={movie.title}>{movie.title}</div>
-        ))}
-      </div>
-    );
+    console.log(movies);
+    return <MoviesList movies={movies} />;
   }
 
   if (STATUS === STATUS.REJECTED) {
     return (
       <>
         <div>Failed to fetch Trending Movies</div>
-        <div>{error}</div>
+        <div>{error.message}</div>
       </>
     );
   }
-
-  // return (
-  //   <>
-  //     {isLoading && <div>Loading...</div>}
-  //     {error && <div>Failed to fetch Trending Movies</div>}
-  //   </>
-  // );
 };
 
 export default HomePage;
