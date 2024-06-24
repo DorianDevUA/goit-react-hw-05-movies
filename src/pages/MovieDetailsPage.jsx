@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import API from '../services/themoviedb-api';
 import MovieInfo from '../components/MovieInfo';
@@ -17,15 +17,15 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      setStatus(STATUS.PENDING);
-
       try {
+        setStatus(STATUS.PENDING);
         const resp = await API.fetchMovieById(movieId);
         setMovie(resp);
         setStatus(STATUS.RESOLVED);
       } catch (error) {
         setError(error);
         setStatus(STATUS.REJECTED);
+        console.log('Failed to fetch Movie');
       }
     };
 
@@ -37,22 +37,18 @@ const MovieDetailsPage = () => {
   }
 
   if (status === STATUS.REJECTED) {
-    return (
-      <>
-        <div>Failed to fetch Movie</div>
-        <div>{error.message}</div>
-      </>
-    );
+    return <div>{error.message}</div>;
   }
 
   if (status === STATUS.RESOLVED) {
-    console.log('movie', movie);
     return (
       <>
         <Link to={backLinkLocationRef.current}>← Go back</Link>
         <MovieInfo movie={movie} />
         <AdditionalMovieInfo />
-        <Outlet />
+        <Suspense fallback={<div>LOADING... SUSPENSE SUBPAGE...</div>}>
+          <Outlet />
+        </Suspense>
       </>
     );
   }
