@@ -11,7 +11,7 @@ const CastList = ({ cast }) => {
             <div>
               <img src={profileImg} alt={name} width={120} />
               <div>
-                <h3>{name}</h3>
+                <h4>{name}</h4>
                 <p>У ролі: {character}</p>
               </div>
             </div>

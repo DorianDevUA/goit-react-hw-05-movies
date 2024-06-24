@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const AdditionalMovieInfo = () => {
   return (
     <>
-      <div>Додаткова інформація</div>
+      <h3>Додаткова інформація</h3>
       <ul>
         <li>
           <Link to="cast">Cast</Link>
