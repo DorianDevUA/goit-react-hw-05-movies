@@ -28,7 +28,6 @@ const MoviesPage = () => {
         const resp = await API.fetchMoviesByName(searchQuery);
         setMovies(resp.results);
         setStatus(STATUS.RESOLVED);
-        console.log(`Виконався UseEffect для ${searchQuery}`);
       } catch (error) {
         setError(error);
         setStatus(STATUS.REJECTED);
@@ -61,6 +60,7 @@ const MoviesPage = () => {
     </>
   );
 
+  // ------------------ other execution options ---------------------
   // return (
   //   <>
   //     <SearchForm />
@@ -70,6 +70,7 @@ const MoviesPage = () => {
   //   </>
   // );
 
+  // ------------------------------- IF -----------------------------
   // if (status === STATUS.IDLE) {
   //   return <SearchForm />;
   // }

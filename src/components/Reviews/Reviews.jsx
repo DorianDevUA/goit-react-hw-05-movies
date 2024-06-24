@@ -11,18 +11,19 @@ const Reviews = () => {
 
   const { movieId } = useParams();
 
+  const isReviewsExist = reviews.length > 0;
+
   useEffect(() => {
     const fetchReviews = async () => {
-      setStatus(STATUS.PENDING);
-
       try {
+        setStatus(STATUS.PENDING);
         const resp = await API.fetchReviewsById(movieId);
         setReviews(resp.results);
         setStatus(STATUS.RESOLVED);
       } catch (error) {
         setError(error);
-        console.log(error);
         setStatus(STATUS.REJECTED);
+        console.log('Failed to fetch Reviews');
       }
     };
 
@@ -30,23 +31,17 @@ const Reviews = () => {
   }, [movieId]);
 
   if (status === STATUS.PENDING) {
-    return <div>Loading Subpage...</div>;
+    return <div>Loading...</div>;
   }
 
   if (status === STATUS.REJECTED) {
-    return (
-      <>
-        <div>Failed to fetch Reviews</div>
-        <div>{error.message}</div>
-      </>
-    );
+    return <div>{error.message}</div>;
   }
 
   if (status === STATUS.RESOLVED) {
-    console.log('reviews', reviews);
     return (
       <>
-        {reviews.length > 0 ? (
+        {isReviewsExist ? (
           <ReviewList reviews={reviews} />
         ) : (
           <div>We don&apos;t have any reviews for this movie</div>

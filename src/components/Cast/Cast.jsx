@@ -8,20 +8,20 @@ const Cast = () => {
   const [cast, setCast] = useState([]);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(STATUS.IDLE);
+
   const { movieId } = useParams();
 
   useEffect(() => {
     const fetchCast = async () => {
-      setStatus(STATUS.PENDING);
-
       try {
+        setStatus(STATUS.PENDING);
         const resp = await API.fetchCastById(movieId);
         setCast(resp.cast);
         setStatus(STATUS.RESOLVED);
       } catch (error) {
-        console.log(error.message);
         setError(error);
         setStatus(STATUS.REJECTED);
+        console.log('Failed to fetch Cast');
       }
     };
 
@@ -33,20 +33,11 @@ const Cast = () => {
   }
 
   if (status === STATUS.REJECTED) {
-    return (
-      <>
-        <div>Failed to fetch Cast</div>
-        <div>{error.message}</div>
-      </>
-    );
+    return <div>{error.message}</div>;
   }
 
   if (status === STATUS.RESOLVED) {
-    return (
-      <>
-        <CastList cast={cast} />
-      </>
-    );
+    return <CastList cast={cast} />;
   }
 };
 
