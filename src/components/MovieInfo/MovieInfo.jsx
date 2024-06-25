@@ -1,3 +1,5 @@
+import { Container, Details } from './MovieInfo.styled';
+
 const MovieInfo = ({
   movie: { title, overview, vote_average, genres, poster_path },
 }) => {
@@ -7,11 +9,11 @@ const MovieInfo = ({
 
   return (
     <>
-      <div>
-        <img src={posterImg} alt={title} width={240} />
-        <div>
+      <Container>
+        <img src={posterImg} alt={title} width={240} height={360} />
+        <Details>
           <h2>{title}</h2>
-          <p>Movie rating: {vote_average}</p>
+          <p>Movie rating: {Math.round(vote_average * 10)}%</p>
           <h3>Overview</h3>
           <p>{overview}</p>
           <h3>Genres</h3>
@@ -22,8 +24,8 @@ const MovieInfo = ({
               </li>
             ))}
           </ul>
-        </div>
-      </div>
+        </Details>
+      </Container>
     </>
   );
 };
