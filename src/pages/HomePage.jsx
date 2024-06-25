@@ -33,7 +33,12 @@ const HomePage = () => {
   }
 
   if (status === STATUS.RESOLVED) {
-    return <MoviesList movies={movies} location={location} />;
+    return (
+      <>
+        <h2>Trending today</h2>
+        <MoviesList movies={movies} location={location} />
+      </>
+    );
   }
 
   if (STATUS === STATUS.REJECTED) {

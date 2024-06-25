@@ -1,8 +1,9 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import API from '../services/themoviedb-api';
-import MovieInfo from '../components/MovieInfo';
 import STATUS from '../services/state-machine';
+import MovieInfo from '../components/MovieInfo';
+import GoBackBtn from '../components/GoBackBtn';
 import AdditionalMovieInfo from '../components/AdditionalMovieInfo';
 
 const MovieDetailsPage = () => {
@@ -43,7 +44,7 @@ const MovieDetailsPage = () => {
   if (status === STATUS.RESOLVED) {
     return (
       <>
-        <Link to={backLinkLocationRef.current}>← Go back</Link>
+        <GoBackBtn location={backLinkLocationRef.current}>← Go back</GoBackBtn>
         <MovieInfo movie={movie} />
         <AdditionalMovieInfo />
         <Suspense fallback={<div>LOADING... SUSPENSE SUBPAGE...</div>}>
