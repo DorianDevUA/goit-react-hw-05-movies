@@ -4,7 +4,7 @@ import STATUS from '../../services/state-machine';
 import API from '../../services/themoviedb-api';
 import ReviewList from '../ReviewList';
 
-const Reviews = () => {
+export const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -51,4 +51,4 @@ const Reviews = () => {
   }
 };
 
-export default Reviews;
+// export default Reviews;

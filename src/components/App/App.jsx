@@ -5,13 +5,22 @@ import SharedLayout from '../SharedLayout';
 // import MoviesPage from '../../pages/MoviesPage';
 // import MovieDetailsPage from '../../pages/MovieDetailsPage';
 // import Cast from '../Cast';
-// import Reviews from '../Reviews';
+// import { Reviews } from '../Reviews';
 
 const HomePage = lazy(() => import('../../pages/HomePage'));
 const MoviesPage = lazy(() => import('../../pages/MoviesPage'));
 const MovieDetailsPage = lazy(() => import('../../pages/MovieDetailsPage'));
 const Cast = lazy(() => import('../Cast'));
-const Reviews = lazy(() => import('../Reviews'));
+
+// Приклад використання lazy() з іменованим експортом
+const Reviews = lazy(() =>
+  import('../Reviews').then(module => {
+    return {
+      ...module,
+      default: module.Reviews,
+    };
+  }),
+);
 
 const App = () => {
   return (
